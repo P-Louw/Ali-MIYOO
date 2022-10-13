@@ -3,7 +3,7 @@
 Check if stock for retro console has been filled.
 If so receive e-mail.
 
-Variables for smtp en recipient have to be set using env or in dockerfile.
+Variables for smtp and recipient have to be set using env or in dockerfile.
 
 ### Required envs
 ```
