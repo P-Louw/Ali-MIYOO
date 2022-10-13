@@ -21,7 +21,7 @@ docker build \
 --build-arg mail="smtpsender@mail.com" \
 --build-arg server="smtphost.mail.com" \
 --build-arg port=587 \
---build-arg server="smtpmailpassword" \
+--build-arg password="smtpmailpassword" \
 --build-arg recipient="myemail@mail.com" \
 --no-cache .
 ```
