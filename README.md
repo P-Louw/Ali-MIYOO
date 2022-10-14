@@ -17,7 +17,9 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
     There are a few required environment args that need to be set,
     this has to be done in the file 'enable_stockcheck.sh' file.
+    
     *This has to be done here so we can access them for validating smtp mail on build!*
+    
     during the image build a testmail will be sent to the smtp mail address mailbox.
 
     ```docker
