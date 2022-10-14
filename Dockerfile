@@ -14,8 +14,10 @@ ENV password = ${password}
 ENV port = ${port}
 ENV recipient = ${recipient}
 
-COPY . ./alistockcheck.fsx
-COPY . ./check_stock.sh
+WORKDIR /scripts
+
+COPY ./alistockcheck.fsx .
+COPY ./check_stock.sh .
 
 RUN chmod +x alistockcheck.fsx
 RUN chmod +x check_stock.sh
@@ -23,6 +25,6 @@ RUN chmod +x check_stock.sh
 RUN apt-get update
 RUN apt-get -y install cron
 
-RUN [ "/src/check_stock.sh"]
-RUN [ "/src/alistockcheck.fsx"]
+RUN [ "/scripts/check_stock.sh"]
+RUN [ "/scripts/alistockcheck.fsx"]
 
