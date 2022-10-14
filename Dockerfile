@@ -8,11 +8,11 @@ ARG port=25
 
 ARG recipient
 
-ENV mail = ${mail}
-ENV server = ${server}
-ENV password = ${password}
-ENV port = ${port}
-ENV recipient = ${recipient}
+ENV mail ${mail}
+ENV server ${server}
+ENV password ${password}
+ENV port ${port}
+ENV recipient ${recipient}
 
 WORKDIR /scripts
 
@@ -26,5 +26,5 @@ RUN apt-get update
 RUN apt-get -y install cron
 
 RUN [ "/scripts/check_stock.sh"]
-RUN [ "/scripts/alistockcheck.fsx"]
+CMD [ "dotnet fsi /scripts/alistockcheck.fsx"]
 
