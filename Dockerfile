@@ -8,6 +8,12 @@ ARG port=25
 
 ARG recipient
 
+ENV mail = ${mail}
+ENV server = ${server}
+ENV password = ${password}
+ENV port = ${port}
+ENV recipient = ${recipient}
+
 COPY . ./alistockcheck.fsx
 COPY . ./check_stock.sh
 
