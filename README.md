@@ -15,8 +15,9 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
 1. Setup container
 
-    There are a few required environment args that need to be set,
-    this has to be done in the file 'enable_stockcheck.sh' file.
+    There are a few required environment args that are set using --build-args.
+    Before using you have to set these in the file 'enable_stockcheck.sh' file.
+    See file for comments.
     
     *This has to be done here so we can access them for validating smtp mail on build!*
     
@@ -35,7 +36,7 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
 2. Run setup script
 
-    Run shell script that sets cron job.
+    Run shell script that sets everything up.
 
     ```sh
     $ enable_stockcheck.sh
@@ -51,13 +52,13 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
 When the initial image is built a testmail is sent to the smtp address itself.
 this is why whe need to set the env variables on build of the image itself.
-The recipient mail can be left out on image built if you wanted. But if any of the others are missing it fails.
+The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
 
 ## Logging
 
 just simple printing to stdout that can be read using docker.
 
 ```sh
-$ docker logs mioopol
+$ docker logs miyoopol
 # Show logs i.e. stdout messages
 ```
