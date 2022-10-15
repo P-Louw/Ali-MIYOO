@@ -42,9 +42,7 @@ docker build \
 
 ## Test mail
 
-When the initial image is built a testmail is sent to the smtp address itself.
-this is why whe need to set the env variables on build of the image itself.
-The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
+When the container starts a testmail is sent to the smtp address itself.
 
 ## Logging
 
