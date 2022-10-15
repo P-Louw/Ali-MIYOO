@@ -13,9 +13,9 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
 ## Usage
 
-    There are a few required environment args that are set using env variables.
-    These have to be set in the 'miyoo.env' file. Alternatively you can
-    use the dockerfile directly and set those use '--build-arg' or in the dockerfile.
+There are a few required environment args that are set using env variables.
+These have to be set in the 'miyoo.env' file. Alternatively you can
+use the dockerfile directly and set those use '--build-arg' or in the dockerfile.
 
 **Using docker-compose**
 
