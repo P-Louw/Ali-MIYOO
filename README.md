@@ -31,13 +31,13 @@ From the directory that contains the dockerfile.
 
 ```docker
 docker build \
--t miyooali
---build-arg mail="smtpsender@mail.com" \
---build-arg server="smtphost.mail.com" \
---build-arg port=587 \
---build-arg password="smtpmailpassword" \
---build-arg recipient="myemail@mail.com" \
---no-cache .
+    -t miyooali
+    --build-arg mail="smtpsender@mail.com" \
+    --build-arg server="smtphost.mail.com" \
+    --build-arg port=587 \
+    --build-arg password="smtpmailpassword" \
+    --build-arg recipient="myemail@mail.com" \
+    --no-cache .
 ```
 
 ## Test mail
