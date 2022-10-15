@@ -13,42 +13,46 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
 ## Usage
 
-    There are a few required environment args that are set using env variables.
-    These have to be set in the 'miyoo.env' file. Alternatively you can
-    use the dockerfile directly and set those use '--build-arg' or in the dockerfile.
+There are a few required environment args that are set using env variables.
+These have to be set in the 'miyoo.env' file. Alternatively you can
+use the dockerfile directly and set those use '--build-arg' or in the dockerfile.
 
-    **Using docker-compose**
+**Using docker-compose**
 
-    ```shell
-    $ docker-compose up --build -d
-    # Build compose file without watching output after '-d'.
-    ```
+```shell
+$ docker-compose up --build -d
+# Build compose file without watching output after '-d'.
+```
 
-    **Using dockerfile**
+**Using dockerfile**
 
-    Set env variables using multiple '--build-arg' or in dockerfile.
-    From the directory that contains the dockerfile.
+Set env variables using multiple '--build-arg' or in dockerfile.
+From the directory that contains the dockerfile.
+
+    *All except recipient needed on build so we can access them for validating smtp mail on build!*
 
     ```docker
     docker build \
     -t miyooali
-        --build-arg mail="smtpsender@mail.com" \
-        --build-arg server="smtphost.mail.com" \
-        --build-arg port=587 \
-        --build-arg password="smtpmailpassword" \
-        --build-arg recipient="myemail@mail.com" \
-        --no-cache .
+    --build-arg mail="smtpsender@mail.com" \
+    --build-arg server="smtphost.mail.com" \
+    --build-arg port=587 \
+    --build-arg password="smtpmailpassword" \
+    --build-arg recipient="myemail@mail.com" \
+    --no-cache .
     ```
 
 ## Test mail
 
-    When the container starts up a testmail is sent to the smtp address itself.
+    When the initial image is built a testmail is sent to the smtp address itself.
+    this is why whe need to set the env variables on build of the image itself.
+    The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
 
 ## Logging
 
     Just simple printing to stdout that can be read using docker.
     
     ```sh
-    $ docker logs --follow miyoopol
+    $ docker --follow logs miyoopol
     # Tracks logs i.e. stdout messages
     ```
