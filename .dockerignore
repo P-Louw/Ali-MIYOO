@@ -1,8 +1,4 @@
 creds.env
-runit.sh
-runit.ps1
-source.html
-test.fsx
 dev/
 
 .vscode/
