@@ -49,6 +49,6 @@ When the container starts a testmail is sent to the smtp address itself.
 Just simple printing to stdout that can be read using docker.
 
 ```sh
-$ docker logs --follow miyoopol
+$ docker logs --follow miyooali
 # Tracks logs i.e. stdout messages
 ```
