@@ -5,7 +5,6 @@ env >> /etc/environment
 
 #Run initial test mail:
 result=$(dotnet fsi /scripts/alistockcheck.fsx testmail)
-echo $result
 case ${result} in
     1) {
             echo Validate smtp mail failed 💥
