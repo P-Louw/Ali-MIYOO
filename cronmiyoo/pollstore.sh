@@ -1,4 +1,4 @@
 #!/bin/sh
 
-echo Checking store stock 📦
-dotnet fsi /scripts/alistockcheck.fsx testmail
+# Can't launch script from cron folder because bash work with -S not sh.
+dotnet fsi /scripts/alistockcheck.fsx

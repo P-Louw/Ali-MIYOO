@@ -29,9 +29,6 @@ RUN chmod +x /etc/periodic/10min/pollstore
 # No need to redirect output alpine write cron to STDOUT and STDERR so viewable in docker logs.
 RUN echo "*/10 * * * * run-parts /etc/periodic/10min" >> /etc/crontabs/root
 
-# Send a test email on creation:
-RUN [ "dotnet", "fsi", "/scripts/alistockcheck.fsx", "testmail" ]
-
 # Start foreground cron:
 ENTRYPOINT /scripts/entrypoint.sh
 

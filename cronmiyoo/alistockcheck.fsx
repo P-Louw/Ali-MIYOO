@@ -30,20 +30,20 @@ module SmtpSender =
     }
 
     let initfromEnv () =
-        let sender = 
             {
                 mail = Environment.GetEnvironmentVariable("mail")
                 server = Environment.GetEnvironmentVariable("server") 
                 port = Environment.GetEnvironmentVariable("port") |> int 
                 password = Environment.GetEnvironmentVariable("password") 
             }
-        sender
     
 /// Send email to notify about stock:
 let mailExecute (smtpCred:SmtpSender.smtp) (sub:string, body:string) (receiver:string) =
-    use msg = 
+    use msg =
         new MailMessage(
-            smtpCred.mail, receiver, sub, 
+            smtpCred.mail, 
+            receiver, 
+            sub, 
             body)
             
     use client = new SmtpClient(smtpCred.server)
@@ -61,13 +61,13 @@ let checkStock () =
 
     let digEx = 
         storeDoc.CssSelect("body > div#page > div#content > div#bd > div#bd-inner > div.detail-page > div.col-main > div.main-wrap > div#node-gallery > div.board > span.m > div.no-result-title") 
-    printfn "Checking stock"
+    printfn "Checking stock 🕵️‍♀️📦"
     if (digEx.Length) > 0 
     then 
-        printfn "No items in stock"
+        printfn "No items in stock 😢"
         None
     else
-        printfn "Products in stock!"
+        printfn "Products in stock! 🕹"
         Some "MIYOO STOCK"
 
 let smtpSession = SmtpSender.initfromEnv()
@@ -75,11 +75,14 @@ let sendMail = mailExecute smtpSession
 
 match fsi.CommandLineArgs with
 | [|_;"testmail"|] -> 
-    printfn "Sending test email."
-    sendMail ("Test mail", "Notifier is able to send mail.") smtpSession.mail
+    printfn "Sending test email. ✏"
+    try
+        sendMail ("Test mail", "Notifier is able to send mail.") smtpSession.mail
+    with | _ -> failwith "1" 
 | _ ->
     checkStock ()
     |> function
         | Some _ -> 
             sendMail ("MIYOO STOCK", mailbody) recipient
+            printfn "Sent notice mail 🔔"
         | _ -> ()
