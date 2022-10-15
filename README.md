@@ -29,30 +29,28 @@ $ docker-compose up --build -d
 Set env variables using multiple '--build-arg' or in dockerfile.
 From the directory that contains the dockerfile.
 
-    *All except recipient needed on build so we can access them for validating smtp mail on build!*
-
-    ```docker
-    docker build \
-    -t miyooali
-    --build-arg mail="smtpsender@mail.com" \
-    --build-arg server="smtphost.mail.com" \
-    --build-arg port=587 \
-    --build-arg password="smtpmailpassword" \
-    --build-arg recipient="myemail@mail.com" \
-    --no-cache .
-    ```
+```docker
+docker build \
+-t miyooali
+--build-arg mail="smtpsender@mail.com" \
+--build-arg server="smtphost.mail.com" \
+--build-arg port=587 \
+--build-arg password="smtpmailpassword" \
+--build-arg recipient="myemail@mail.com" \
+--no-cache .
+```
 
 ## Test mail
 
-    When the initial image is built a testmail is sent to the smtp address itself.
-    this is why whe need to set the env variables on build of the image itself.
-    The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
+When the initial image is built a testmail is sent to the smtp address itself.
+this is why whe need to set the env variables on build of the image itself.
+The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
 
 ## Logging
 
-    Just simple printing to stdout that can be read using docker.
-    
-    ```sh
-    $ docker --follow logs miyoopol
-    # Tracks logs i.e. stdout messages
-    ```
+Just simple printing to stdout that can be read using docker.
+
+```sh
+$ docker --follow logs miyoopol
+# Tracks logs i.e. stdout messages
+```
