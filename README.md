@@ -19,10 +19,10 @@ use the dockerfile directly and set those use '--build-arg' or in the dockerfile
 
 **Using docker-compose**
 
-    ```shell
-    $ docker-compose up --build -d
-    # Build compose file without watching output after '-d'.
-    ```
+```shell
+$ docker-compose up --build -d
+# Build compose file without watching output after '-d'.
+```
 
 **Using dockerfile**
 
@@ -31,16 +31,16 @@ From the directory that contains the dockerfile.
 
 *All except recipient needed on build so we can access them for validating smtp mail on build!*
 
-    ```docker
-    docker build \
-    -t miyooali
-    --build-arg mail="smtpsender@mail.com" \
-    --build-arg server="smtphost.mail.com" \
-    --build-arg port=587 \
-    --build-arg password="smtpmailpassword" \
-    --build-arg recipient="myemail@mail.com" \
-    --no-cache .
-    ```
+```docker
+docker build \
+-t miyooali
+--build-arg mail="smtpsender@mail.com" \
+--build-arg server="smtphost.mail.com" \
+--build-arg port=587 \
+--build-arg password="smtpmailpassword" \
+--build-arg recipient="myemail@mail.com" \
+--no-cache .
+```
 
 ## Test mail
 
@@ -52,7 +52,7 @@ The recipient mail can be left out on image build if you wanted. But if any of t
 
 Just simple printing to stdout that can be read using docker.
     
-    ```sh
-    $ docker --follow logs miyoopol
-    # Tracks logs i.e. stdout messages
-    ```
+```sh
+$ docker --follow logs miyoopol
+# Tracks logs i.e. stdout messages
+```
