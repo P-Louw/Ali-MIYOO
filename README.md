@@ -17,19 +17,19 @@ Using a docker container to hold settings etc, so a few env variables have to be
     These have to be set in the 'miyoo.env' file. Alternatively you can
     use the dockerfile directly and set those use '--build-arg' or in the dockerfile.
 
-    **Using docker-compose**
+**Using docker-compose**
 
     ```shell
     $ docker-compose up --build -d
     # Build compose file without watching output after '-d'.
     ```
 
-    **Using dockerfile**
+**Using dockerfile**
 
-    Set env variables using multiple '--build-arg' or in dockerfile.
-    From the directory that contains the dockerfile.
+Set env variables using multiple '--build-arg' or in dockerfile.
+From the directory that contains the dockerfile.
 
-    *All except recipient needed on build so we can access them for validating smtp mail on build!*
+*All except recipient needed on build so we can access them for validating smtp mail on build!*
 
     ```docker
     docker build \
@@ -44,13 +44,13 @@ Using a docker container to hold settings etc, so a few env variables have to be
 
 ## Test mail
 
-    When the initial image is built a testmail is sent to the smtp address itself.
-    this is why whe need to set the env variables on build of the image itself.
-    The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
+When the initial image is built a testmail is sent to the smtp address itself.
+this is why whe need to set the env variables on build of the image itself.
+The recipient mail can be left out on image build if you wanted. But if any of the others are missing it fails.
 
 ## Logging
 
-    Just simple printing to stdout that can be read using docker.
+Just simple printing to stdout that can be read using docker.
     
     ```sh
     $ docker --follow logs miyoopol
