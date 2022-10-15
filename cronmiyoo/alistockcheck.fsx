@@ -57,10 +57,10 @@ let mailExecute (smtpCred:SmtpSender.smtp) (sub:string, body:string) (receiver:s
 
 /// Check if we get the 'Sorry no stock page':
 let checkStock () =
-    let storeDoc = HtmlDocument.Load("https://miyoo.nl.aliexpress.com/store/group/Handheld-Game-Console/912663639_10000003620340.html?spm=a2g0o.store_pc_home.pcShopHead_6001952523151.1_0")
+    let storeDoc = HtmlDocument.Load("https://miyoo.nl.aliexpress.com/store/group/Handheld-Game-Console/912663639_10000003620340.html")
 
     let digEx = 
-        storeDoc.CssSelect("body > div#page > div#content > div#bd > div#bd-inner > div.layout > div.col-main > div.main-wrap > div#node-gallery > div.board > span.m > div.no-result-title") 
+        storeDoc.CssSelect("body > div#page > div#content > div#bd > div#bd-inner > div.detail-page > div.col-main > div.main-wrap > div#node-gallery > div.board > span.m > div.no-result-title") 
     printfn "Checking stock"
     if (digEx.Length) > 0 
     then 
