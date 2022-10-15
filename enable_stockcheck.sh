@@ -22,7 +22,7 @@ docker container create \
 
 # Create cron job:
 crontab -l > cron_bkp
-echo "*/15 * * * * $(whoami) docker run -d --name miyoopoll miyooali > /dev/null 2>&1" >> cron_bkp
+echo "*/15 * * * * $(whoami) docker start miyoopol > /dev/null 2>&1" >> cron_bkp
 crontab cron_bkp
 rm cron_bkp
 
