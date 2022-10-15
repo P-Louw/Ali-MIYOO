@@ -43,11 +43,11 @@ module SmtpSender =
 let mailExecute (smtpCred:SmtpSender.smtp) (msg:string) (receiver:string) =
     use msg = 
         new MailMessage(
-            smtpCred.mail, receiver, @"MIYOO STOCK", 
+            smtpCred.mail, receiver, "MIYOO STOCK", 
             stockMail)
             
     use client = new SmtpClient(smtpCred.server)
-    client.Port <- 587
+    client.Port <- smtpCred.port
     client.Credentials <- new NetworkCredential(smtpCred.mail, smtpCred.password);
     client.DeliveryMethod <- SmtpDeliveryMethod.Network
     client.EnableSsl <- true
@@ -72,8 +72,11 @@ let checkStock () =
 
 let sendMail = mailExecute (SmtpSender.initfromEnv()) stockMail
 
-checkStock ()
-|> function
-    | Some _ -> 
-        sendMail recipient
-    | _ -> ()
+match fsi.CommandLineArgs with
+| [|_;"testmail"|] -> sendMail recipient
+| _ ->
+    checkStock ()
+    |> function
+        | Some _ -> 
+            sendMail recipient
+        | _ -> ()

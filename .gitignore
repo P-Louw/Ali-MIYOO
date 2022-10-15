@@ -1,3 +1,6 @@
 creds.env
 runit.sh
 runit.ps1
+
+.vscode/
+.idea/
