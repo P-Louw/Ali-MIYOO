@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0.100-alpine3.14
 
-# Args the set env variables, only added in case of manual launc dockerfile:
+# Args the set env variables, only added/used in case of manual launch dockerfile:
 ARG mail
 ARG server
 ARG password
@@ -14,7 +14,6 @@ ENV password ${password}
 ENV port ${port}
 ENV recipient ${recipient}
 
-#RUN apk add firefox-esr
 
 WORKDIR /scripts
 
@@ -22,11 +21,11 @@ WORKDIR /scripts
 COPY [^p]*  .
 RUN chmod +x alistockcheck.fsx
 RUN chmod +x *.sh
-RUN ls
+
 # Add cron job script:
 COPY pollstore.sh /etc/periodic/10min/pollstore
 RUN chmod +x /etc/periodic/10min/pollstore
-# No need to redirect output alpine write cron to STDOUT and STDERR so viewable in docker logs.
+# Using alpine so no need to redirect output cron to STDOUT and STDERR for docker log viewing.
 RUN echo "*/10 * * * * run-parts /etc/periodic/10min" >> /etc/crontabs/root
 
 # Start foreground cron:
