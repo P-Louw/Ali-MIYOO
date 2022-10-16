@@ -1,10 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
-# Used to set environment variables for smtp server
+# Optional, used to set environment variables for smtp server
 ARG mail
 ARG server
 ARG password
-ARG port=25
+ARG port
 
 ARG recipient
 
@@ -17,14 +17,11 @@ ENV recipient ${recipient}
 WORKDIR /scripts
 
 COPY ./alistockcheck.fsx .
-COPY ./check_stock.sh .
 
 RUN chmod +x alistockcheck.fsx
-RUN chmod +x check_stock.sh
 
-RUN apt-get update
-RUN apt-get -y install cron
-
-RUN [ "/scripts/check_stock.sh"]
-CMD [ "dotnet fsi /scripts/alistockcheck.fsx"]
+# Send a test email on creation:
+RUN [ "dotnet", "fsi", "/scripts/alistockcheck.fsx", "testmail" ]
+# Check stocks:
+ENTRYPOINT [ "dotnet", "fsi", "/scripts/alistockcheck.fsx" ]
 

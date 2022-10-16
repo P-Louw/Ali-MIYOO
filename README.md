@@ -3,25 +3,59 @@
 Check if stock for retro console has been filled.
 If so receive e-mail.
 
-Variables for smtp and recipient have to be set using env or in dockerfile.
+Using a docker container to hold settings etc, so a few env variables have to be set on creation.
 
-### Required envs
-```
-mail = "smtpsender@mail.com"
-server = "smtphost.mail.com"
-port = 587(outlook) or 25 (default/gmail)
-password = "smtpmailpassword"
+## Requirements
 
-recipient = "myemail@mail.com"
-```
+- Docker
+- cron
+- Linux machine
 
-### Example
-```
-docker build \
---build-arg mail="smtpsender@mail.com" \
---build-arg server="smtphost.mail.com" \
---build-arg port=587 \
---build-arg password="smtpmailpassword" \
---build-arg recipient="myemail@mail.com" \
---no-cache .
+## Usage
+
+1. Setup container
+
+    There are a few required environment args that need to be set,
+    this has to be done in the file 'enable_stockcheck.sh' file.
+    *This has to be done here so we can access them for validating smtp mail on build!*
+    during the image build a testmail will be sent to the smtp mail address mailbox.
+
+    ```docker
+    docker build \
+    -t miyooali
+    --build-arg mail="smtpsender@mail.com" \
+    --build-arg server="smtphost.mail.com" \
+    --build-arg port=587 \
+    --build-arg password="smtpmailpassword" \
+    --build-arg recipient="myemail@mail.com" \
+    --no-cache .
+    ```
+
+2. Run setup script
+
+    Run shell script that sets cron job.
+
+    ```sh
+    $ enable_stockcheck.sh
+    # Create image.
+    # Create container.
+    # Adds cron job to user jobs.
+    ```
+
+    Using cron job from executing machine because containers exit without a main process.
+    This can be done with Windows task scheduler as well but it's a hassle and inconsistent.
+
+## Test mail
+
+When the initial image is built a testmail is sent to the smtp address itself.
+this is why whe need to set the env variables on build of the image itself.
+The recipient mail can be left out on image built if you wanted. But if any of the others are missing it fails.
+
+## Logging
+
+just simple printing to stdout that can be read using docker.
+
+```sh
+$ docker logs mioopol
+# Show logs i.e. stdout messages
 ```

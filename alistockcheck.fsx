@@ -13,7 +13,7 @@ open System
 *)
 
 [<Literal>]
-let stockMail = """
+let mailbody = """
             🕹 MIYOO STOCK REFILLED 🎉
             Go to site: 
                 https://nl.aliexpress.com/store/912663639?spm=a2g0o.store_pc_allProduct.pcShopHead_6001952523151.0
@@ -40,11 +40,11 @@ module SmtpSender =
         sender
     
 /// Send email to notify about stock:
-let mailExecute (smtpCred:SmtpSender.smtp) (msg:string) (receiver:string) =
+let mailExecute (smtpCred:SmtpSender.smtp) (sub:string, body:string) (receiver:string) =
     use msg = 
         new MailMessage(
-            smtpCred.mail, receiver, "MIYOO STOCK", 
-            stockMail)
+            smtpCred.mail, receiver, sub, 
+            body)
             
     use client = new SmtpClient(smtpCred.server)
     client.Port <- smtpCred.port
@@ -70,13 +70,16 @@ let checkStock () =
         printfn "Products in stock!"
         Some "MIYOO STOCK"
 
-let sendMail = mailExecute (SmtpSender.initfromEnv()) stockMail
+let smtpSession = SmtpSender.initfromEnv()
+let sendMail = mailExecute smtpSession
 
 match fsi.CommandLineArgs with
-| [|_;"testmail"|] -> sendMail recipient
+| [|_;"testmail"|] -> 
+    printfn "Sending test email."
+    sendMail ("Test mail", "Notifier is able to send mail.") smtpSession.mail
 | _ ->
     checkStock ()
     |> function
         | Some _ -> 
-            sendMail recipient
+            sendMail ("MIYOO STOCK", mailbody) recipient
         | _ -> ()
